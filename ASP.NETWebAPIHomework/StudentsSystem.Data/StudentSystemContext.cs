@@ -20,12 +20,12 @@
 
         public virtual IDbSet<Student> Students { get; set; }
 
-        public new void SaveChanges()
+        public void SaveChanges()
         {
             base.SaveChanges();
         }
 
-        public new IDbSet<TEntity> Set<TEntity>() where TEntity : class
+        public IDbSet<TEntity> Set<TEntity>() where TEntity : class
         {
             return base.Set<TEntity>();
         }

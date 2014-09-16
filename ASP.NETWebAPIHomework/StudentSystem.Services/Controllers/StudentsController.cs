@@ -1,36 +1,28 @@
 ﻿namespace StudentSystem.Services.Controllers
 {
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
-    using System.Net;
-    using System.Net.Http;
     using System.Web.Http;
 
     using StudentsSystem.Data.Interfaces;
-    using StudentsSystem.Model;
     using StudentsSystem.Data.Repositories;
+    using StudentsSystem.Model;
     using StudentSystem.Services.Models;
-
-
-    public class StudentsController : ApiController
+    
+    public class StudentsController : BaseApiController
     {
-        private IRepository<Student> students;
-
         public StudentsController()
-            : this(new Repository<Student>())
+            :this(new DbData())
         {
         }
-
-        public StudentsController(IRepository<Student> studentsRepo)
+        public StudentsController(IDbData data)
+            : base(data)
         {
-            this.students = studentsRepo;
         }
 
         [HttpGet]
         public IHttpActionResult All()
         {
-            var allStudents = this.students
+            var allStudents = this.data.Students
                 .All()
                 .Select(StudentModel.FromStudent);
 
@@ -52,8 +44,8 @@
                 Number = student.Number,
             };
 
-            this.students.Add(newStudent);
-            this.students.SaveChanges();
+            this.data.Students.Add(newStudent);
+            this.data.Students.SaveChanges();
 
             student.ID = newStudent.ID;
 
@@ -68,7 +60,7 @@
                 return BadRequest(ModelState);
             }
 
-            var existingStudent = this.students.All().FirstOrDefault(x => x.ID == id);
+            var existingStudent = this.data.Students.All().FirstOrDefault(x => x.ID == id);
 
             if (existingStudent == null)
             {
@@ -79,10 +71,25 @@
             existingStudent.FirstName = student.FirstName;
             existingStudent.LastName = student.LastName;
             existingStudent.Number = student.Number;
-            this.students.SaveChanges();
+            this.data.Students.SaveChanges();
 
             student.ID = existingStudent.ID;
             return Ok(student);
+        }
+
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            var existingStudent = this.data.Students.All().FirstOrDefault(a => a.ID == id);
+            if (existingStudent == null)
+            {
+                return BadRequest("Such student does not exists!");
+            }
+
+            this.data.Students.Delete(existingStudent);
+            this.data.SaveChanges();
+
+            return Ok();
         }
     }
 }
