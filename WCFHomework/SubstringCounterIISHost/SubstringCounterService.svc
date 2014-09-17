@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Service="SubstringOccurrence.SubstringOccurrenceCount"    Factory="System.ServiceModel.Activation.WebServiceHostFactory" %>

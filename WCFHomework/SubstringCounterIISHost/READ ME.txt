@@ -1,0 +1,6 @@
+﻿Start the service in chrome and use this link (use your PORT):
+http://localhost:3890/SubstringCounterService.svc/substringCounter?mainString=pesho&searchString=pes
+
+Main String = pesho
+Search String = pes
+Result = 1
