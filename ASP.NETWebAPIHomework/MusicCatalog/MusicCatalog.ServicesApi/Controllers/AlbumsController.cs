@@ -66,7 +66,7 @@
 
             if (existingItem == null)
             {
-                return this.BadRequest("Invalid Course");
+                return this.BadRequest("Invalid Album");
             }
 
             // Check if some of the fields in the new data are not null
@@ -102,6 +102,50 @@
             this.data.SaveChanges();
 
             return this.Ok();
+        }
+
+        // /api/albums/AddArtist/INT?artistId=INT
+        [HttpPost]
+        public IHttpActionResult AddArtist(int id, int artistId)
+        {
+            var album = this.data.Albums.Find(id);
+            if (album == null)
+            {
+                return BadRequest("Such album does not exists - invalid id!");
+            }
+
+            var artist = this.data.Artists.Find(artistId);
+            if (artist == null)
+            {
+                return BadRequest("Such artist does not exists - invalid id!");
+            }
+
+            album.Artists.Add(artist);
+            this.data.SaveChanges();
+
+            return Ok();
+        }
+
+        // /api/albums/AddSong/INT?songId=INT
+        [HttpPost]
+        public IHttpActionResult AddSong(int id, int songId)
+        {
+            var album = this.data.Albums.Find(id);
+            if (album == null)
+            {
+                return BadRequest("Such album does not exists - invalid id!");
+            }
+
+            var song = this.data.Songs.Find(songId);
+            if (song == null)
+            {
+                return BadRequest("Such song does not exists - invalid id!");
+            }
+
+            album.Songs.Add(song);
+            this.data.SaveChanges();
+
+            return Ok();
         }
     }
 }

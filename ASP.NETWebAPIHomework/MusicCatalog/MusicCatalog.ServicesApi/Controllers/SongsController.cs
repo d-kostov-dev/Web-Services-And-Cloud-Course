@@ -60,7 +60,7 @@
 
             if (existingItem == null)
             {
-                return this.BadRequest("Invalid Course");
+                return this.BadRequest("Invalid Song");
             }
 
             // Check if some of the fields in the new data are not null

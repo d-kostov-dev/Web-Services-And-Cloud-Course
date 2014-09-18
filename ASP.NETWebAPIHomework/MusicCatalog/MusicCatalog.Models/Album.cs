@@ -6,10 +6,12 @@
     public class Album
     {
         private ICollection<Artist> artists;
+        private ICollection<Song> songs;
 
         public Album()
         {
             this.Artists = new HashSet<Artist>();
+            this.Songs = new HashSet<Song>();
         }
 
         [Key]
@@ -32,6 +34,12 @@
         {
             get { return this.artists; }
             set { this.artists = value; }
+        }
+
+        public virtual ICollection<Song> Songs
+        {
+            get { return this.songs; }
+            set { this.songs = value; }
         }
     }
 }
