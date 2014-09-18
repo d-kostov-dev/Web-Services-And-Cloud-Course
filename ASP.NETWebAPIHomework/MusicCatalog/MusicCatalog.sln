@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.Data", "MusicC
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.ServicesApi", "MusicCatalog.ServicesApi\MusicCatalog.ServicesApi.csproj", "{B57A6AE0-206A-48FB-90DB-9E9041ECA36D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MusicCatalog.ConsoleClient", "MusicCatalog.ConsoleClient\MusicCatalog.ConsoleClient.csproj", "{20FF57F1-1E68-4E91-9B89-9192BBC50BFC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{B57A6AE0-206A-48FB-90DB-9E9041ECA36D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B57A6AE0-206A-48FB-90DB-9E9041ECA36D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B57A6AE0-206A-48FB-90DB-9E9041ECA36D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{20FF57F1-1E68-4E91-9B89-9192BBC50BFC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{20FF57F1-1E68-4E91-9B89-9192BBC50BFC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{20FF57F1-1E68-4E91-9B89-9192BBC50BFC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{20FF57F1-1E68-4E91-9B89-9192BBC50BFC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
