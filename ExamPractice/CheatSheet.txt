@@ -1,0 +1,94 @@
+1. Create the WEB API - Individual Users option
+	- Edit user password requirements
+	
+2. Create Models Project - Class Library
+	- Add reference for the Models project to the API project
+	- Add Entity Identity
+	- Add public class ApplicationUser
+	
+3. Transfer ApplicationUser from API (IdentityModels) to Models (ApplicationUser)
+
+4. Create Data Project (Repositories and UoW) - Class Library
+	- Add reference to the Models project
+	- Add reference in the API project for the Data project
+	- Add Entity Framework
+	- Add Entity Identity
+	
+5. Transfer ApplicationDbContext from API to Data
+	- Delete IdentityModels from the API Project
+	
+6. Build and fix all using errors
+
+7. Rename the ApplicationDbContext and/or the ApplicationUser classes (Not required)
+
+8. Create the required models in the Models project. 
+	Example: Student, Course, Homework etc.
+	- Use Keys: [Required], [MaxLength], [MinLength] etc. - using System.ComponentModel.DataAnnotations; (reference required sometimes)
+
+9. Create Repositories and Unit Of Work for the Data project
+	- PUBLIC IRepository + Generic Implementation
+	- PUBLIC IDbContext + Implementation
+	- PUBLIC IApplicationData + Implementation
+
+10. Implement IDbContext in the ApplicationDbContext (or whatever your context class name is)
+
+11. Add/Change Connection Strings
+	- In Data project (not required)
+	- In API project (REQUIRED)
+	Example:
+	 <connectionStrings>
+		<add name="CONNECTION_STRING_NAME_HERE" connectionString="Data Source=.;Initial Catalog=DATABASE_NAME_HERE;Integrated Security=True" providerName="System.Data.SqlClient"/>
+	  </connectionStrings>
+
+12. Enable Migrations
+	- Make the configuration class public
+	- Configuration file constructor:
+		this.AutomaticMigrationsEnabled = true;
+        this.AutomaticMigrationDataLossAllowed = true;
+		
+	- Context constructor:
+		Database.SetInitializer(new MigrateDatabaseToLatestVersion<YOUR_CONTEXT_CLASS_HERE, Configuration>());
+
+13. Enable Cors in the API project. ***NOTE: CORS will not work with this options without NINJECT OWIN
+	- Get Cors from Nuget
+	- Add "config.EnableCors(new EnableCorsAttribute("*", "*", "*"));" in WebApiConfig.cs
+	- Add:
+		protected void Application_BeginRequest(object sender, EventArgs e)
+		{
+			Response.Headers.Add("Access-Control-Allow-Origin", "*");
+		}
+	to Global.asax
+	
+14. Change Token path: TokenEndpointPath = new PathString("NEW_PATH_HERE"),
+
+15. Change AccountController Route Prefix if needed: [RoutePrefix("/api/NEW_ROUTE_HERE")]
+
+16. Create base controller
+
+17. Add UserIdProvider
+
+18. Start creating your controllers and DataModels
+	- Use expression for the DataModels - DRY
+	
+19. Backup the project
+
+20. Install and configure Ninject
+	- using Ninject.Web.Common.OwinHost;
+	- using Ninject.Web.WebApi.OwinHost;
+	
+21. Lose 6 hours to make Ninject work. And give up on the Api Help Page
+
+* Other Stuff
+- Optional configurations
+	- JSON output: 
+		config.Formatters.JsonFormatter.SerializerSettings.PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None;
+        config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+- GetUserID() namespace: using Microsoft.AspNet.Identity;
+
+CORS STUFF
+	- [EnableCors("*", "*", "*", SupportsCredentials = true)]
+	- context.OwinContext.Response.Headers.Add("Access-Control-Allow-Origin", new[] {"*"});
+
+
+
