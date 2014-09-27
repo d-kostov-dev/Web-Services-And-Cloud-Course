@@ -1,0 +1,65 @@
+﻿<div class="row" ng-show="!userData.isAuth">
+    <div class="col-md-6">
+        <div class="jumbotron">
+            <h2>Login</h2>
+            <p class="text-primary">
+                If you have Username and Password, you can use the button below to access the
+                secured content using a token.
+            </p>
+            <p><a class="btn btn-info" href="#/login" role="button">Login &raquo;</a></p>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="jumbotron">
+            <h2>Sign Up</h2>
+            <p class="text-primary">Use the button below to create Username and Password to access the secured content using
+                a token.</p>
+            <p><a class="btn btn-info" href="#/signup" role="button">Sign Up &raquo;</a></p>
+        </div>
+    </div>
+</div>
+
+<div class="row" ng-show="userData.isAuth">
+    <div class="col-md-6">
+        <h2>Available Games</h2>
+        <div class="panel panel-primary">
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item" ng-repeat="game in games" >
+                        <a ng-click="askForNumber(game.Id)">{{game.Name}}</a>
+                        <span class="badge">{{game.Red}}</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <h2>Top Players</h2>
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="player in topPlayers">
+                <span class="badge pull-right">Rank: {{player.Rank}}</span>
+                <strong>{{player.UserName}}</strong>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-2">
+        <a href="#/create-game" class="btn btn-primary btn-default btn-block">Greate Game</a>
+    </div>
+</div>
+
+<div class="modal-dialog" ng-show="askForNumberForm">
+    <div class="modal-content">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            <h4 class="modal-title">Enter Your Secret Number</h4>
+        </div>
+        <div class="modal-body">
+            <input type="password" class="form-control" placeholder="Secret Number" data-ng-model="secretNumber" required>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancelJoin()">Close</button>
+            <button type="button" class="btn btn-primary" ng-click="joinGame(secretNumber)">Join Game</button>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="row" data-ng-init="getGameInfo()" data-ng-init="getNoifications()">
+    <div class="col-md-4">
+        <div class="well bs-component">
+            <form class="form-horizontal form-Login" role="form">
+                <legend>Make a guess</legend>
+                <div class="form-group">
+                    <label class="col-lg-3 control-label">Number</label>
+                    <div class="col-lg-9">
+                        <input type="text" class="form-control" placeholder="Number" data-ng-model="guessData.Number" required autofocus>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-info btn-block" type="submit" data-ng-click="makeGuess()">Make
+                    Guess
+                </button>
+            </form>
+        </div>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title">Game Info</h3>
+            </div>
+            <div class="panel-body">
+                <span class="badge pull-right">{{gameInfo.DateCreated}}</span>
+                {{gameInfo.Name}}
+
+            </div>
+        </div>
+        <div class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title">Players</h3>
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        {{gameInfo.Red}}
+                    </li>
+                    <li class="list-group-item">
+                        {{gameInfo.Blue}}
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="form-group">
+            <label for="select" class="col-lg-3 control-label">Show guesses by:</label>
+            <div class="col-lg-9">
+                <select class="form-control" id="select" ng-model="guessType">
+                    <option value="">Everyone</option>
+                    <option value="{{gameInfo.Red}}">{{gameInfo.Red}}</option>
+                    <option value="{{gameInfo.Blue}}">{{gameInfo.Blue}}</option>
+                </select>
+            </div>
+        </div>
+
+        <hr />
+
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="guess in gameInfo.YourGuesses | filter: guessType | limitTo: 10">
+                <span class="badge pull-right">{{guess.UserName}}</span>
+                <strong>{{guess.Number}} </strong>
+                <img src="../content/img/bull.png" ng-repeat="n in [] | range: guess.BullsCount" />
+                <img src="../content/img/cow.png" ng-repeat="n in [] | range: guess.CowsCount" />
+            </li>
+        </ul>
+
+        <hr />
+
+        <ul class="list-group">
+            <li class="list-group-item" ng-repeat="notification in notifications">
+                <span class="badge pull-right">{{notification.Type}}</span>
+                <strong>{{notification.Message}} </strong>
+            </li>
+        </ul>
+
+    </div>
+</div>
